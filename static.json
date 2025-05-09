@@ -3,5 +3,12 @@
     "/**": {
       "Content-Security-Policy": "default-src *; script-src * 'unsafe-inline' 'unsafe-eval'; object-src *; connect-src *; frame-src *"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "**",
+      "destination": "/index.html",
+      "type": 200
+    }
+  ]
 }
