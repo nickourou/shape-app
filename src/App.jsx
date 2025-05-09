@@ -3,34 +3,34 @@ import { Menu, X } from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate } from 'react-router-dom';
 
 function Login({ setUsername }) {
-  const [input, setInput] = useState('');
-  const navigate = useNavigate();
+  useEffect(() => {
+    window.onTelegramAuth = function (user) {
+      localStorage.setItem('username', user.username);
+      localStorage.setItem('tg_id', user.id);
+      setUsername(user.username);
+    };
 
-  const handleLogin = () => {
-    if (input.trim()) {
-      localStorage.setItem('username', input);
-      setUsername(input);
-      navigate('/');
+    const script = document.createElement('script');
+    script.src = 'https://telegram.org/js/telegram-widget.js?7';
+    script.setAttribute('data-telegram-login', 'CoDrAppBot'); // 👉 βάλε εδώ το username του bot ΧΩΡΙΣ το @
+    script.setAttribute('data-size', 'large');
+    script.setAttribute('data-userpic', 'false');
+    script.setAttribute('data-request-access', 'write');
+    script.setAttribute('data-on-auth', 'onTelegramAuth');
+    script.async = true;
+
+    const container = document.getElementById('telegram-login');
+    if (container && !container.firstChild) {
+      container.appendChild(script);
     }
-  };
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white p-6 rounded-xl shadow max-w-sm w-full">
-        <h2 className="text-xl font-bold mb-4 text-center">Login</h2>
-        <input
-          type="text"
-          placeholder="Enter your username"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="w-full px-4 py-2 border rounded mb-4"
-        />
-        <button
-          onClick={handleLogin}
-          className="w-full bg-blue-600 text-white py-2 rounded font-medium"
-        >
-          Enter
-        </button>
+      <div className="bg-white p-6 rounded-xl shadow max-w-sm w-full text-center">
+        <h2 className="text-xl font-bold mb-4">Login</h2>
+        <p className="text-sm text-gray-500 mb-4">Sign in with Telegram</p>
+        <div id="telegram-login"></div>
       </div>
     </div>
   );
