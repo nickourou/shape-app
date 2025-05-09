@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link, useNavigate } f
 function Login({ setUsername }) {
   useEffect(() => {
     window.onTelegramAuth = function (user) {
+      console.log("✅ User logged in via Telegram:", user);
       localStorage.setItem('username', user.username);
       localStorage.setItem('tg_id', user.id);
       setUsername(user.username);
