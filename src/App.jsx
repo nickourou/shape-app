@@ -15,7 +15,7 @@ function Login({ setUsername }) {
       const script = document.createElement('script');
       script.id = 'tg-login-script';
       script.src = 'https://telegram.org/js/telegram-widget.js?7';
-      script.setAttribute('data-telegram-login', 'CoDrAppBot'); // <-- βάλε εδώ το bot σου χωρίς @
+      script.setAttribute('data-telegram-login', 'shapeappbot'); // <-- βάλε εδώ το bot σου χωρίς @
       script.setAttribute('data-size', 'large');
       script.setAttribute('data-userpic', 'false');
       script.setAttribute('data-request-access', 'write');
