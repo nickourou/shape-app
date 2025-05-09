@@ -10,18 +10,18 @@ function Login({ setUsername }) {
       setUsername(user.username);
     };
 
-    const script = document.createElement('script');
-    script.src = 'https://telegram.org/js/telegram-widget.js?7';
-    script.setAttribute('data-telegram-login', 'CoDrAppBot'); // 👉 βάλε εδώ το username του bot ΧΩΡΙΣ το @
-    script.setAttribute('data-size', 'large');
-    script.setAttribute('data-userpic', 'false');
-    script.setAttribute('data-request-access', 'write');
-    script.setAttribute('data-on-auth', 'onTelegramAuth');
-    script.async = true;
-
-    const container = document.getElementById('telegram-login');
-    if (container && !container.firstChild) {
-      container.appendChild(script);
+    const existing = document.getElementById('tg-login-script');
+    if (!existing) {
+      const script = document.createElement('script');
+      script.id = 'tg-login-script';
+      script.src = 'https://telegram.org/js/telegram-widget.js?7';
+      script.setAttribute('data-telegram-login', 'CoDrAppBot'); // <-- βάλε εδώ το bot σου χωρίς @
+      script.setAttribute('data-size', 'large');
+      script.setAttribute('data-userpic', 'false');
+      script.setAttribute('data-request-access', 'write');
+      script.setAttribute('data-on-auth', 'onTelegramAuth');
+      script.async = true;
+      document.getElementById('telegram-login')?.appendChild(script);
     }
   }, []);
 
